@@ -22,7 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build artifacts
-      - run: |
+        run: |
           cargo build --release
           echo $ {{ matrix.os }}
           if [["${{ matrix.os }}" != "windows-latest"]]; then chmod +x target/release/github-actions-playground ; fi
