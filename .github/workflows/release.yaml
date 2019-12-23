@@ -22,6 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build artifacts
+        shell: bash
         run: |
           cargo build --release
           echo ${{ matrix.os }}
