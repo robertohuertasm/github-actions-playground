@@ -40,7 +40,7 @@ jobs:
             chmod +x target/release/github-actions-playground
             gzip -k -f target/release/github-actions-playground
             ls target/release -la
-            mv target/release/microserver.gz microserver_unix.gz
+            mv target/release/github-actions-playground.gz github-actions-playground_unix.gz
             ls -la
           fi
       # - name: Create GitHub Release
