@@ -24,7 +24,6 @@ jobs:
       - name: Build artifacts
         shell: bash
         run: |
-          set -e
           cargo build --release
           echo ${{ matrix.os }}
           echo $GITHUB_WORKSPACE
