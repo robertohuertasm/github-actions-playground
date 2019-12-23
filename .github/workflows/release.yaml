@@ -26,6 +26,7 @@ jobs:
         run: |
           cargo build --release
           echo ${{ matrix.os }}
+          echo ${{ GITHUB_WORKSPACE }}
           if [["${{ matrix.os }}" != "windows-latest"]]; then chmod +x target/release/github-actions-playground ; fi
           if [["${{ matrix.os }}" == "windows-latest"]]; then chmod +x target/release/github-actions-playground.exe ; fi
       # - name: Create GitHub Release
