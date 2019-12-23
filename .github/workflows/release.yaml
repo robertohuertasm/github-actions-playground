@@ -41,7 +41,7 @@ jobs:
             fi  
             chmod +x target/release/github-actions-playground
             gzip -k -f target/release/github-actions-playground
-            # mv target/release/github-actions-playground.gz "github-actions-playground_$(UNIX_FLAVOUR).gz"
+            mv target/release/github-actions-playground.gz "github-actions-playground_$(UNIX_FLAVOUR).gz"
           fi
           ls -la
       # - name: Create GitHub Release
