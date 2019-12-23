@@ -31,16 +31,16 @@ jobs:
           then   
             echo "THIS IS WINDOWS"
             chmod +x target/release/github-actions-playground.exe
-            gzip -k -f ${GITHUB_WORKSPACE}/target/release/github-actions-playground.exe
-            mv ${GITHUB_WORKSPACE}/target/release/github-actions-playground.exe.gz ${GITHUB_WORKSPACE}/github-actions-playground_windows.gz
+            gzip -k -f target/release/github-actions-playground.exe
             ls target/release -la
+            mv target/release/github-actions-playground.exe.gz github-actions-playground_windows.gz
             ls -la
           else   
             echo "THIS IS UNIX" 
-            chmod +x ${GITHUB_WORKSPACE}/target/release/github-actions-playground
+            chmod +x target/release/github-actions-playground
             gzip -k -f target/release/github-actions-playground
-            mv ${GITHUB_WORKSPACE}/target/release/microserver.gz ${GITHUB_WORKSPACE}/microserver_unix.gz
             ls target/release -la
+            mv target/release/microserver.gz microserver_unix.gz
             ls -la
           fi
       # - name: Create GitHub Release
