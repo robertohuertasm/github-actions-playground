@@ -1,0 +1,25 @@
+fail_fast: true
+repos:
+  - repo: local
+    hooks:
+      - id: fmt
+        name: fmt
+        description: Format files with rustfmt
+        entry: cargo fmt --all -- --check
+        language: rust
+        files: \.rs$
+        args: []
+      - id: clippy
+        name: clippy
+        description: Clippy for the warnings
+        entry: cargo clippy --all -- -D clippy::pedantic -D clippy::nursery -D warnings
+        language: rust
+        files: \.rs$
+        pass_filenames: false
+        types: [file, rust]
+      - id: test
+        name: test
+        description: tests
+        entry: cargo test --verbose
+        language: rust
+        files: \.rs$
