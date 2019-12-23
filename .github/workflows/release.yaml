@@ -30,18 +30,16 @@ jobs:
           if [[ "${{ matrix.os }}" == "windows-latest" ]];
           then   
             echo "THIS IS WINDOWS"
-            echo ${GITHUB_WORKSPACE}
             # chmod +x ${GITHUB_WORKSPACE}/target/release/github-actions-playground.exe
             # gzip -k -f ${GITHUB_WORKSPACE}/target/release/microserver.exe
             # mv ${GITHUB_WORKSPACE}/target/release/microserver.exe.gz ${GITHUB_WORKSPACE}/microserver_windows.gz
-            ls -la
+            ls target/release -la
           else   
             echo "THIS IS UNIX" 
-            echo ${GITHUB_WORKSPACE}
             # chmod +x ${GITHUB_WORKSPACE}/target/release/github-actions-playground
             # gzip -k -f target/release/microserver
             # mv ${GITHUB_WORKSPACE}/target/release/microserver.gz ${GITHUB_WORKSPACE}/microserver_unix.gz
-            ls -la
+            ls target/release -la
           fi
       # - name: Create GitHub Release
       #   id: create_release
