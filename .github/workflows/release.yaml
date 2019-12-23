@@ -24,12 +24,12 @@ jobs:
       - name: Build artifacts
         shell: bash
         run: |
+          set -e
           cargo build --release
           echo ${{ matrix.os }}
           echo $GITHUB_WORKSPACE
           if [[ "${{ matrix.os }}" == "windows-latest" ]];
           then   
-            echo "THIS IS WINDOWS"
             chmod +x target/release/github-actions-playground.exe
             gzip -k -f target/release/github-actions-playground.exe
             mv target/release/github-actions-playground.exe.gz github-actions-playground_windows.gz
@@ -44,6 +44,7 @@ jobs:
             gzip -k -f target/release/github-actions-playground
             mv target/release/github-actions-playground.gz "github-actions-playground_$($UNIX_FLAVOUR).gz"
           fi
+          ls -la
       # - name: Create GitHub Release
       #   id: create_release
       #   uses: actions/create-release@v1.0.0
