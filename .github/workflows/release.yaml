@@ -40,6 +40,7 @@ jobs:
           echo "Building the project"
           cargo build --release
           echo "Preparing the artifact"
+          echo "target/release/${{ matrix.artifact_name }}"
           chmod +x "target/release/${{ matrix.artifact_name }}"
           gzip -k -f "target/release/${{ matrix.artifact_name }}"
           mv "target/release/${{ matrix.artifact_name }}" "target/release/${{ matrix.asset_name }}"
