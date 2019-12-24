@@ -41,6 +41,7 @@ jobs:
           cargo build --release
           echo "Preparing the artifact"
           chmod +x "target/release/${{ matrix.artifact_name }}"
+          gzip -k -f "target/release/${{ matrix.artifact_name }}"
           echo "moving target/release/${{ matrix.artifact_name }}.gz to ${{ matrix.asset_name }}"
           mv "target/release/${{ matrix.artifact_name }}.gz" "${{ matrix.asset_name }}"
       - name: Publishing to GitHub release
