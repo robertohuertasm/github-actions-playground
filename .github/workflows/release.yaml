@@ -14,6 +14,19 @@ jobs:
       matrix:
         rust: [stable]
         os: [ubuntu-latest, macOS-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            rust: stable
+            artifact_name: github-actions-playground
+            asset_name: github-actions-playground_linux.gz
+          - os: macOS-latest
+            rust: stable
+            artifact_name: github-actions-playground
+            asset_name: github-actions-playground_osx.gz
+          - os: windows-latest
+            rust: stable
+            artifact_name: github-actions-playground.exe
+            asset_name: github-actions-playground_windows.gz
     steps:
       - name: Setup Rust
         uses: hecrj/setup-rust-action@master
@@ -24,34 +37,17 @@ jobs:
       - name: Build artifacts
         shell: bash
         run: |
+          echo "Building the project"
           cargo build --release
-          echo ${{ matrix.os }}
-          echo $GITHUB_WORKSPACE
-          if [[ "${{ matrix.os }}" == "windows-latest" ]];
-          then   
-            chmod +x target/release/github-actions-playground.exe
-            gzip -k -f target/release/github-actions-playground.exe
-            mv target/release/github-actions-playground.exe.gz github-actions-playground_windows.gz
-            echo "::set-env name=artifact_name::github-actions-playground_windows.gz"
-          else
-            if [[ "${{ matrix.os }}" == "ubuntu-latest" ]];
-            then
-              UNIX_FLAVOUR="linux"
-            else
-              UNIX_FLAVOUR="osx"
-            fi
-            echo $UNIX_FLAVOUR
-            chmod +x target/release/github-actions-playground
-            gzip -k -f target/release/github-actions-playground
-            mv target/release/github-actions-playground.gz "github-actions-playground_${UNIX_FLAVOUR}.gz"
-            echo "::set-env name=artifact_name::github-actions-playground_${UNIX_FLAVOUR}.gz"
-          fi
-          echo $artifact_name
+          echo "Preparing the artifact"
+          chmod +x "target/release/${{ matrix.artifact_name }}"
+          gzip -k -f "target/release/${{ matrix.artifact_name }}"
+          mv "target/release/${{ matrix.artifact_name }}" "target/release/${{ matrix.asset_name }}"
           ls -la
       - name: Publishing to GitHub release
         uses: svenstaro/upload-release-action@v1-release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ artifact_name }}
-          asset_name: ${{ artifact_name }}
+          file: ${{ matrix.artifact_file }}
+          asset_name: ${{ matrix.asset_name }}
           tag: ${{ github.ref }}
