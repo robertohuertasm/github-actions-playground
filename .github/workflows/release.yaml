@@ -18,15 +18,15 @@ jobs:
           - os: ubuntu-latest
             rust: stable
             artifact_name: github-actions-playground
-            asset_name: github-actions-playground_linux.gz
+            asset_name: github-actions-playground_linux.zip
           - os: macOS-latest
             rust: stable
             artifact_name: github-actions-playground
-            asset_name: github-actions-playground_osx.gz
+            asset_name: github-actions-playground_osx.zip
           - os: windows-latest
             rust: stable
             artifact_name: github-actions-playground.exe
-            asset_name: github-actions-playground_windows.gz
+            asset_name: github-actions-playground_windows.zip
     steps:
       - name: Setup Rust
         uses: hecrj/setup-rust-action@master
@@ -41,9 +41,9 @@ jobs:
           cargo build --release
           echo "Preparing the artifact"
           chmod +x "target/release/${{ matrix.artifact_name }}"
-          gzip -k -f "target/release/${{ matrix.artifact_name }}"
-          echo "moving target/release/${{ matrix.artifact_name }}.gz to ${{ matrix.asset_name }}"
-          mv "target/release/${{ matrix.artifact_name }}.gz" "${{ matrix.asset_name }}"
+          zip -j "target/release/${{ matrix.artifact_name }}"
+          echo "moving target/release/${{ matrix.artifact_name }}.zip to ${{ matrix.asset_name }}"
+          mv "target/release/${{ matrix.artifact_name }}.zip" "${{ matrix.asset_name }}"
           ls -la
       - name: Publishing to GitHub release
         uses: svenstaro/upload-release-action@v1-release
