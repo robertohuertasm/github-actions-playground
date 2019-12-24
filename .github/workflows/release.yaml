@@ -41,17 +41,12 @@ jobs:
           cargo build --release
           echo "Preparing the artifact"
           chmod +x "target/release/${{ matrix.artifact_name }}"
-          gzip -h
-          gzip -k -f "target/release/${{ matrix.artifact_name }}"
           echo "moving target/release/${{ matrix.artifact_name }}.gz to ${{ matrix.asset_name }}"
           mv "target/release/${{ matrix.artifact_name }}.gz" "${{ matrix.asset_name }}"
-          ls -la
-          gzip -d "${{ matrix.asset_name }}" 
-          ls -la
-      # - name: Publishing to GitHub release
-      #   uses: svenstaro/upload-release-action@v1-release
-      #   with:
-      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
-      #     file: ${{ matrix.asset_name }}
-      #     asset_name: ${{ matrix.asset_name }}
-      #     tag: ${{ github.ref }}
+      - name: Publishing to GitHub release
+        uses: svenstaro/upload-release-action@v1-release
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ matrix.asset_name }}
+          asset_name: ${{ matrix.asset_name }}
+          tag: ${{ github.ref }}
