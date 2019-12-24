@@ -40,9 +40,9 @@ jobs:
           echo "Building the project"
           cargo build --release
           echo "Preparing the artifact"
-          echo "target/release/${{ matrix.artifact_name }}"
           chmod +x "target/release/${{ matrix.artifact_name }}"
           gzip -k -f "target/release/${{ matrix.artifact_name }}"
+          ls target/release -la
           mv "target/release/${{ matrix.artifact_name }}" "target/release/${{ matrix.asset_name }}"
           ls -la
       - name: Publishing to GitHub release
