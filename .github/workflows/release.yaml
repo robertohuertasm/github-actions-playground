@@ -42,13 +42,13 @@ jobs:
           echo "Preparing the artifact"
           chmod +x "target/release/${{ matrix.artifact_name }}"
           gzip -k -f "target/release/${{ matrix.artifact_name }}"
-          ls target/release -la
-          mv "target/release/${{ matrix.artifact_name }}.gz" "target/release/${{ matrix.asset_name }}"
+          echo "moving target/release/${{ matrix.artifact_name }}.gz to ${{ matrix.asset_name }}"
+          mv "target/release/${{ matrix.artifact_name }}.gz" "${{ matrix.asset_name }}"
           ls -la
       - name: Publishing to GitHub release
         uses: svenstaro/upload-release-action@v1-release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ matrix.artifact_file }}
+          file: ${{ matrix.asset_name }}
           asset_name: ${{ matrix.asset_name }}
           tag: ${{ github.ref }}
